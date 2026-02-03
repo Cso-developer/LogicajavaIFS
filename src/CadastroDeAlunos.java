@@ -9,7 +9,7 @@ public class CadastroDeAlunos {
 			opcao = menuInicial();
 			switch(opcao) {
 				case 1:{
-					cadastroDeAluno(alunos)
+					cadastroDeAluno(alunos);
 					break;
 				}
 				
@@ -53,18 +53,19 @@ public class CadastroDeAlunos {
 	}
     
     public static String[][] cadastroDeAluno(String alunos[][]){
-        boolean campoVazio = (nome == null || matricula == null)?true:false
+		String nome =null, matricula=null;
+        boolean campoVazio = (nome == null || matricula == null)?true:false;
         if(!existeEspacoNaBaseDedados(alunos)) {
 			System.out.println("base de dados cheia, não é possivel cadastrar");
 			return alunos;
 		}
         do{
-            String nome = lerDados("Digite o nome do aluno");
-            String matricula = lerDados("Atribua um numero de matricula")
+            nome = lerDados("Digite o nome do aluno");
+            matricula = lerDados("Atribua um numero de matricula");
             if(campoVazio){
-                System.out.println("preencha os campos com dados válidos")
-            }
-        }while(campoVazio)
+                System.out.println("preencha os campos com dados válidos\n");
+            };
+        }while(campoVazio);
         
 
         return alunos;
@@ -72,11 +73,13 @@ public class CadastroDeAlunos {
     public static boolean existeEspacoNaBaseDedados(String usuarios[][]) {
 		int maximoArmazenamento = 2;
 		return contaAlunosCadastrados < maximoArmazenamento;
+	}
     public static String  lerDados(String menssagem){
         Scanner scanner = new Scanner(System.in);
         String input;
-		System.out.println(mensagem);
+		System.out.println(menssagem);
 		input = scanner.nextLine();
+        return input;
     }
     
 }
