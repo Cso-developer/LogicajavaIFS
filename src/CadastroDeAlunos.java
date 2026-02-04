@@ -3,7 +3,7 @@ public class CadastroDeAlunos {
     static int contaAlunosCadastrados = 0; 
     public static void main(String[] args) {
         int opcao =0 ;
-        String[][] alunos  = new String[3][2];
+        String[][] alunos  = new String[2][2];
 
         	do {
 			opcao = menuInicial();
@@ -14,7 +14,7 @@ public class CadastroDeAlunos {
 				}
 				
 				case 2: {	
-					
+					editarCadastro(alunos);
 					break;
 				}
 						
@@ -53,23 +53,41 @@ public class CadastroDeAlunos {
 	}
     
     public static String[][] cadastroDeAluno(String alunos[][]){
-		String nome =null, matricula=null;
-        boolean campoVazio = (nome == null || matricula == null)?true:false;
+		
+        
+
         if(!existeEspacoNaBaseDedados(alunos)) {
 			System.out.println("base de dados cheia, não é possivel cadastrar");
 			return alunos;
 		}
-        do{
-            nome = lerDados("Digite o nome do aluno");
-            matricula = lerDados("Atribua um numero de matricula");
-            if(campoVazio){
+
+        
+		do{
+			
+            String nome = lerDados("Digite o nome do aluno");
+            String matricula = lerDados("Atribua um numero de matricula");
+            if(nome == null || matricula == null){
                 System.out.println("preencha os campos com dados válidos\n");
             };
-        }while(campoVazio);
-        
+		
+        }while();
 
-        return alunos;
-    }
+		
+		for(int i = 0;i<alunos
+			.length;i++) {
+			String aluno[] = alunos[i];
+			if(aluno[0] == null) {
+				alunos[i] = new String[2];
+				alunos[i][0]=matricula;
+				alunos[i][1]=nome;
+	
+				break;
+			}
+		}
+		contaAlunosCadastrados++;
+		return alunos;
+	}
+
     public static boolean existeEspacoNaBaseDedados(String usuarios[][]) {
 		int maximoArmazenamento = 2;
 		return contaAlunosCadastrados < maximoArmazenamento;
@@ -80,6 +98,22 @@ public class CadastroDeAlunos {
 		System.out.println(menssagem);
 		input = scanner.nextLine();
         return input;
+
     }
-    
+
+
+    public static String[][] editarCadastro(String alunos[][]){
+
+		String matricula = lerDados("Digite a matricula do aluno que deseja editar");
+		for(int i = 0;i<alunos.length;i++) {
+			String aluno[] = alunos[i];
+			if(aluno[0] != null && aluno[0].equals(matricula)) {
+				String nome = lerDados("Digite o novo nome do aluno");
+				alunos[i][1] = nome;
+				System.out.println("Cadastro editado com sucesso");
+				break;
+			}
+		}
+		return alunos;
+	}
 }
